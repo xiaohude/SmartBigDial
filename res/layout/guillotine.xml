@@ -53,7 +53,7 @@
 
         <com.smarttiger.guillotine.util.CanaroTextView
             style="@style/TextView.GuillotineItem.Selected"
-            android:text="@string/activity" />
+            android:text="@string/title" />
     </LinearLayout>
 
     <View

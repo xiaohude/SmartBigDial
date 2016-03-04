@@ -32,7 +32,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/activity"
+                android:text="@string/title"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/guillotine_item_text_size" />
             
             <ImageView

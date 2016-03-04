@@ -2,6 +2,7 @@ package com.smarttiger.bigdial;
 
 import com.smarttiger.bigdial.DataControl.LuckyData;
 import com.smarttiger.guillotine.util.GuillotineAnimation;
+import com.smarttiger.guillotine.util.GuillotineMenuInit;
 import com.smarttiger.view.DeleteClickListener;
 import com.smarttiger.view.LuckyPanView;
 import com.smarttiger.view.NameTextWatcher;
@@ -132,7 +133,7 @@ public class MainActivity extends ActionBarActivity {
         guillotineMenu = LayoutInflater.from(this).inflate(R.layout.guillotine, null);
         root.addView(guillotineMenu);
         
-        
+        GuillotineMenuInit guillotineMenuInit = new GuillotineMenuInit(this, guillotineMenu);
 
         new GuillotineAnimation.GuillotineBuilder(guillotineMenu, 
         		guillotineMenu.findViewById(R.id.guillotine_hamburger), 
@@ -317,7 +318,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	
-	private void showMenuDialog()
+	public void showMenuDialog()
 	{
 		LinearLayout linearLayout = new LinearLayout(this);
 		linearLayout.setOrientation(LinearLayout.VERTICAL);
