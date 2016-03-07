@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.text.method.DigitsKeyListener;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -72,6 +73,11 @@ public class MainActivity extends ActionBarActivity {
 			{
 				System.out.println("OnTouchListener----ACTION_MOVE");
 				mLuckyPanView.luckyStarting(-0.3);
+			}
+			else if(event.getAction() == MotionEvent.ACTION_UP)
+			{
+				System.out.println("OnTouchListener----ACTION_UP");
+				mLuckyPanView.luckyEnd();
 			}
 			
 			return false;
@@ -327,19 +333,19 @@ public class MainActivity extends ActionBarActivity {
 		final EditText editText0 = new EditText(this);
 		editText0.setText(""+acceleration);
 		editText0.selectAll();
-		editText0.setInputType(InputType.TYPE_CLASS_NUMBER);
+		editText0.setKeyListener(new DigitsKeyListener(false,true));
 		linearLayout.addView(editText0);
 		
 		final EditText editText1 = new EditText(this);
 		editText1.setText(""+friction);
 		editText1.selectAll();
-		editText1.setInputType(InputType.TYPE_CLASS_NUMBER);
+		editText1.setKeyListener(new DigitsKeyListener(false,true));
 		linearLayout.addView(editText1);
 		
 		final EditText editText2 = new EditText(this);
 		editText2.setText(""+speed);
 		editText2.selectAll();
-		editText2.setInputType(InputType.TYPE_CLASS_NUMBER);
+		editText2.setKeyListener(new DigitsKeyListener(false,true));
 		linearLayout.addView(editText2);
 		
 		new AlertDialog.Builder(this)
