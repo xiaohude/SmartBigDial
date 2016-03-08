@@ -8,16 +8,11 @@ import com.smarttiger.view.LuckyPanView;
 import com.smarttiger.view.NameTextWatcher;
 import com.smarttiger.view.WeightTextWatcher;
 
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
-import android.text.method.DigitsKeyListener;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -124,6 +119,7 @@ public class MainActivity extends ActionBarActivity {
     private float x = 0;
     private float y = 0;
     View guillotineMenu;
+    GuillotineAnimation guillotineAnimation;
 	//初始化铡刀菜单
 	private void initGuillotineMenu()
 	{
@@ -141,7 +137,7 @@ public class MainActivity extends ActionBarActivity {
         
         GuillotineMenuInit guillotineMenuInit = new GuillotineMenuInit(this, guillotineMenu);
 
-        new GuillotineAnimation.GuillotineBuilder(guillotineMenu, 
+        guillotineAnimation = new GuillotineAnimation.GuillotineBuilder(guillotineMenu, 
         		guillotineMenu.findViewById(R.id.guillotine_hamburger), 
         		contentHamburger)
                 .setStartDelay(RIPPLE_DURATION)
@@ -324,57 +320,49 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	
-	public void showMenuDialog()
+	/** 设置按钮加速度。  */
+	public void setAcceleration(double acceleration)
 	{
-		LinearLayout linearLayout = new LinearLayout(this);
-		linearLayout.setOrientation(LinearLayout.VERTICAL);
-		
-		
-		final EditText editText0 = new EditText(this);
-		editText0.setText(""+acceleration);
-		editText0.selectAll();
-		editText0.setKeyListener(new DigitsKeyListener(false,true));
-		linearLayout.addView(editText0);
-		
-		final EditText editText1 = new EditText(this);
-		editText1.setText(""+friction);
-		editText1.selectAll();
-		editText1.setKeyListener(new DigitsKeyListener(false,true));
-		linearLayout.addView(editText1);
-		
-		final EditText editText2 = new EditText(this);
-		editText2.setText(""+speed);
-		editText2.selectAll();
-		editText2.setKeyListener(new DigitsKeyListener(false,true));
-		linearLayout.addView(editText2);
-		
-		new AlertDialog.Builder(this)
-			.setTitle("请输入加速度，摩擦力：")
-			.setIcon(android.R.drawable.ic_dialog_info)
-			.setView(linearLayout)
-			.setPositiveButton("确认",
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog,int which) {
-
-						friction = Double.valueOf(editText1.getText().toString());
-						mLuckyPanView.setFriction(friction);
-						
-						acceleration = Double.valueOf(editText0.getText().toString());
-						
-						speed = Double.valueOf(editText2.getText().toString());
-						
-					}
-				})
-			.setNegativeButton("取消",
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog,int which) {
-					}
-				})
-			.create()
-			.show();
+		this.acceleration = acceleration;
+	}
+	/** 获取按钮加速度。 */
+	public double getAcceleration()
+	{
+		return acceleration;
+	}
+	
+	/** 设置转盘摩擦力。 */
+	public void setFriction(double friction)
+	{
+		this.friction = friction;
+		mLuckyPanView.setFriction(friction);
+	}
+	/** 获取转盘摩擦力。 */
+	public double getFriction()
+	{
+		return friction;
+	}
+	
+	/** 设置固定速度。 */
+	public void setSpeed(double speed)
+	{
+		this.speed = speed;
+	}
+	/** 获取固定速度。 */
+	public double getSpeed()
+	{
+		return speed;
 	}
 	
 	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+        	if(guillotineMenu.getVisibility() == View.VISIBLE) {
+        		guillotineAnimation.close();
+                return true;
+        	}
+         }
+         return super.onKeyDown(keyCode, event);
+	}
 }

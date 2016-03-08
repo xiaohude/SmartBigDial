@@ -60,7 +60,6 @@ public class GuillotineAnimation {
         if (!isClosing) {
             mClosingAnimation.start();
         }
-
     }
 
     private void setUpOpeningView(final View openingView) {
