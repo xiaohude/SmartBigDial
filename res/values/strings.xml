@@ -4,4 +4,8 @@
     <string name="feed">我的评论</string>
     <string name="title">智能大转盘</string>
     <string name="settings">设    置</string>
+    
+    <string name="isShowSpeed">是否显示速度</string>
+    <string name="acceleration">加速度:</string>
+    <string name="friction">摩擦力:</string>
 </resources>
