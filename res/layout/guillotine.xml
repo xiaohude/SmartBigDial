@@ -17,98 +17,134 @@
             android:src="@drawable/ic_menu" />
     </android.support.v7.widget.Toolbar>
 
-    
     <LinearLayout
-        style="@style/LinearLayout.GuillotineItem">
-        <TextView
-            style="@style/TextView.GuillotineItem"
-            android:text="@string/friction" />
-        
-        <Switch
-            android:id="@+id/isShowSpeed_Switch"
-            style="@style/TextView.GuillotineItem"
-            />
-    </LinearLayout>
-    
-    <LinearLayout
-        style="@style/LinearLayout.GuillotineItem"
-        android:layout_marginTop="@dimen/guillotine_medium_margin">
-        <TextView
-            style="@style/TextView.GuillotineItem"
-            android:text="@string/acceleration" />
-        
-        <EditText 
-            android:id="@+id/acceleration_edit"
-            style="@style/TextView.GuillotineItem"
-            android:hint="0.08"
-            />
-    </LinearLayout>
-    <LinearLayout
-        style="@style/LinearLayout.GuillotineItem">
-        <TextView
-            style="@style/TextView.GuillotineItem"
-            android:text="@string/friction" />
-        
-        <EditText 
-            android:id="@+id/friction_edit"
-            style="@style/TextView.GuillotineItem"
-            android:hint="0.1"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/profile_group"
-        style="@style/LinearLayout.GuillotineItem">
-
-        <ImageView
-            style="@style/ImageView.GuillotineItem"
-            android:src="@drawable/ic_profile" />
-
-        <TextView
-            style="@style/TextView.GuillotineItem"
-            android:text="@string/profile" />
-    </LinearLayout>
-    
-    <LinearLayout
-        android:id="@+id/feed_group"
-        style="@style/LinearLayout.GuillotineItem">
-
-        <ImageView
-            style="@style/ImageView.GuillotineItem"
-            android:src="@drawable/ic_feed" />
-
-        <com.smarttiger.guillotine.util.CanaroTextView
-            style="@style/TextView.GuillotineItem"
-            android:text="@string/feed" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/activity_group"
-        style="@style/LinearLayout.GuillotineItem">
-
-        <ImageView
-            style="@style/ImageView.GuillotineItem"
-            android:src="@drawable/ic_activity_active" />
-
-        <com.smarttiger.guillotine.util.CanaroTextView
-            style="@style/TextView.GuillotineItem.Selected"
-            android:text="@string/title" />
-    </LinearLayout>
-
-    <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/guillotine_divider_height" />
-
-    <LinearLayout
-        android:id="@+id/settings_group"
-        style="@style/LinearLayout.GuillotineItem">
-
-        <ImageView
-            style="@style/ImageView.GuillotineItem"
-            android:src="@drawable/ic_settings" />
-
-        <TextView
-            style="@style/TextView.GuillotineItem"
-            android:text="@string/settings" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+        
+        <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:orientation="vertical"
+	        >
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="0dp"
+				android:layout_weight="1"
+				android:layout_marginLeft="12dp"
+				android:layout_marginRight="8dp"
+	            android:gravity="center"
+	            android:paddingBottom="50dp"
+	            android:ems="1"
+	            android:text="@string/title"
+        		android:textSize="@dimen/guillotine_item_text_size"
+        		android:textColor="@android:color/white"
+        		android:textStyle="bold"
+	            />
+	        
+	        <ImageView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+				android:layout_marginLeft="4dp"
+				android:layout_marginBottom="10dp"
+                android:layout_gravity="bottom"
+                android:src="@drawable/reload"
+                android:onClick="onResetClick" />
+            
+        </LinearLayout>
+        
+        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:orientation="vertical"
+	        >
+		    <LinearLayout
+		        style="@style/LinearLayout.GuillotineItem">
+		        <TextView
+		            style="@style/TextView.GuillotineItem"
+		            android:text="@string/isShowSpeed" />
+		        
+		        <Switch
+		            android:id="@+id/isShowSpeed_Switch"
+		            style="@style/TextView.GuillotineItem"
+		            />
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        style="@style/LinearLayout.GuillotineItem">
+		        <TextView
+		            style="@style/TextView.GuillotineItem"
+		            android:text="@string/acceleration" />
+		        
+		        <EditText 
+		            android:id="@+id/acceleration_edit"
+		            style="@style/TextView.GuillotineItem"
+		            android:hint="0.08"
+		            android:textColorHint="@android:color/white"
+		            />
+		    </LinearLayout>
+		    <LinearLayout
+		        style="@style/LinearLayout.GuillotineItem">
+		        <TextView
+		            style="@style/TextView.GuillotineItem"
+		            android:text="@string/friction" />
+		        
+		        <EditText 
+		            android:id="@+id/friction_edit"
+		            style="@style/TextView.GuillotineItem"
+		            android:hint="0.1"
+		            android:textColorHint="@android:color/white"
+		            />
+		    </LinearLayout>
+		    <LinearLayout
+		        style="@style/LinearLayout.GuillotineItem">
+		        <TextView
+		            style="@style/TextView.GuillotineItem"
+		            android:text="@string/speed" />
+		        
+		        <EditText 
+		            android:id="@+id/speed_edit"
+		            style="@style/TextView.GuillotineItem"
+		            android:hint="0"
+		            android:textColorHint="@android:color/white"
+		            />
+		    </LinearLayout>
+		
+		    
+		    
+		
+		    <View
+		        android:layout_width="match_parent"
+		        android:layout_height="@dimen/guillotine_divider_height" />
+		    
+		    <LinearLayout
+		        android:id="@+id/activity_group"
+		        style="@style/LinearLayout.GuillotineItem">
+		
+		        <ImageView
+		            style="@style/ImageView.GuillotineItem"
+		            android:src="@drawable/ic_activity_active" />
+		
+		        <com.smarttiger.guillotine.util.CanaroTextView
+		            style="@style/TextView.GuillotineItem.Selected"
+		            android:text="@string/title" />
+		    </LinearLayout>
+		
+		
+		    <LinearLayout
+		        android:id="@+id/settings_group"
+		        style="@style/LinearLayout.GuillotineItem">
+		
+		        <ImageView
+		            style="@style/ImageView.GuillotineItem"
+		            android:src="@drawable/ic_settings" />
+		
+		        <TextView
+		            style="@style/TextView.GuillotineItem"
+		            android:text="@string/settings" />
+		    </LinearLayout>
+	    
+	    </LinearLayout>
     </LinearLayout>
 </LinearLayout>

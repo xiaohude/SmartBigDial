@@ -8,8 +8,11 @@ import android.content.DialogInterface;
 import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 
 public class GuillotineMenuInit {
 	
@@ -21,7 +24,21 @@ public class GuillotineMenuInit {
 		this.main = main;
 		guillotineView = view;
 		
+		initIsShowSpeed();
 		setSetingAction();
+	}
+	
+	private void initIsShowSpeed()
+	{
+		Switch isShowSwitch = (Switch) guillotineView.findViewById(R.id.isShowSpeed_Switch);
+		isShowSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				// TODO Auto-generated method stub
+				main.setIsShowSpeed(isChecked);
+			}
+		});
 	}
 	
 	private void setSetingAction()

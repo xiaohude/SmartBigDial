@@ -319,7 +319,11 @@ public class MainActivity extends ActionBarActivity {
 		});
 	}
 	
-	
+	/** 设置是否显示速度。  */
+	public void setIsShowSpeed(boolean isShow)
+	{
+		mLuckyPanView.isShowSpeed(isShow);
+	}
 	/** 设置按钮加速度。  */
 	public void setAcceleration(double acceleration)
 	{
@@ -357,6 +361,7 @@ public class MainActivity extends ActionBarActivity {
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		//解决菜单界面点击返回直接退出问题。
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
         	if(guillotineMenu.getVisibility() == View.VISIBLE) {
         		guillotineAnimation.close();

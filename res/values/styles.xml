@@ -6,7 +6,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:layout_marginTop">@dimen/guillotine_small_margin</item>
+        <item name="android:layout_marginTop">@dimen/guillotine_item_marginTop</item>
     </style>
 
     <style name="TextView" />
@@ -21,7 +21,7 @@
     <style name="TextView.GuillotineItem">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/guillotine_small_margin</item>
+        <item name="android:layout_marginLeft">@dimen/guillotine_item_marginleft</item>
         <item name="android:textSize">@dimen/guillotine_item_text_size</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:textColor">@android:color/white</item>

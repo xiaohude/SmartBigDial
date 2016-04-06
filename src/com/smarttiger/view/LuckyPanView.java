@@ -94,6 +94,8 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 	 * 滚动的速度
 	 */
 	private double mSpeed;
+	//是否显示速度
+	private boolean isShowSpeed = false;
 	private volatile float mStartAngle = 0;
 	//转盘摩擦力
 	private double friction = 0.1;
@@ -384,6 +386,8 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 	
 	private void drawSpeed(double speed)
 	{
+		if(!isShowSpeed)
+			return;
 		float textWidth = mTextPaint.measureText(""+speed);
 		BigDecimal bd = new BigDecimal(speed);
 		bd = bd.setScale(2,BigDecimal.ROUND_HALF_UP);  
@@ -392,6 +396,14 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 		//也是保留两位小数显示，但是小数为0时就不显示了，上面方法是固定的，小数为0时，也显示。
 //		java.text.DecimalFormat df=new java.text.DecimalFormat("#.##");
 //		mCanvas.drawText(""+df.format(speed)+"度/秒", 20, 50, mTextPaint2);
+	}
+	
+	/**
+	 * 是否显示速度
+	 */
+	public void isShowSpeed(boolean isShow)
+	{
+		isShowSpeed = isShow;
 	}
 
 	/**

@@ -8,4 +8,5 @@
     <string name="isShowSpeed">是否显示速度</string>
     <string name="acceleration">加速度:</string>
     <string name="friction">摩擦力:</string>
+    <string name="speed">自定义速度:</string>
 </resources>
