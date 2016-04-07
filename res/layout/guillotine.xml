@@ -79,9 +79,8 @@
 		        
 		        <EditText 
 		            android:id="@+id/acceleration_edit"
-		            style="@style/TextView.GuillotineItem"
+		            style="@style/EditText.GuillotineItem"
 		            android:hint="0.08"
-		            android:textColorHint="@android:color/white"
 		            />
 		    </LinearLayout>
 		    <LinearLayout
@@ -92,9 +91,8 @@
 		        
 		        <EditText 
 		            android:id="@+id/friction_edit"
-		            style="@style/TextView.GuillotineItem"
+		            style="@style/EditText.GuillotineItem"
 		            android:hint="0.1"
-		            android:textColorHint="@android:color/white"
 		            />
 		    </LinearLayout>
 		    <LinearLayout
@@ -105,9 +103,8 @@
 		        
 		        <EditText 
 		            android:id="@+id/speed_edit"
-		            style="@style/TextView.GuillotineItem"
+		            style="@style/EditText.GuillotineItem"
 		            android:hint="0"
-		            android:textColorHint="@android:color/white"
 		            />
 		    </LinearLayout>
 		

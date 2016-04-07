@@ -1,6 +1,7 @@
 package com.smarttiger.bigdial;
 
 import com.smarttiger.bigdial.DataControl.LuckyData;
+import com.smarttiger.bigdial.DataControl.SettingData;
 import com.smarttiger.guillotine.util.GuillotineAnimation;
 import com.smarttiger.guillotine.util.GuillotineMenuInit;
 import com.smarttiger.view.DeleteClickListener;
@@ -43,12 +44,8 @@ public class MainActivity extends ActionBarActivity {
 	private LayoutInflater mInflater;
 	private LinearLayout itemsLayout;
 	
-	//按钮加速度
-	private double acceleration = 0.08;
-	//转盘摩擦力
-	private double friction = 0.1;
-	//自定义速度
-	private double speed = 0;
+	//设置参数
+	private SettingData settingData = new SettingData(false, 0.08, 0.1, 0);
 	
 	//viewIndex和LuckyPanView里的itemCount对应，只增不减，删除只是把weight改为0.只有重置的时候才清空。
 	private int viewIndex = 0;
@@ -87,6 +84,7 @@ public class MainActivity extends ActionBarActivity {
 		context = this;
 		
 		dataControl = new DataControl(context);
+		settingData = dataControl.getSettingData();
 		mInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		itemsLayout = (LinearLayout) findViewById(R.id.items_layout);
 		mLuckyPanView = (LuckyPanView) findViewById(R.id.id_luckypan);
@@ -135,7 +133,7 @@ public class MainActivity extends ActionBarActivity {
         guillotineMenu = LayoutInflater.from(this).inflate(R.layout.guillotine, null);
         root.addView(guillotineMenu);
         
-        GuillotineMenuInit guillotineMenuInit = new GuillotineMenuInit(this, guillotineMenu);
+        GuillotineMenuInit guillotineMenuInit = new GuillotineMenuInit(this, guillotineMenu, settingData);
 
         guillotineAnimation = new GuillotineAnimation.GuillotineBuilder(guillotineMenu, 
         		guillotineMenu.findViewById(R.id.guillotine_hamburger), 
@@ -160,17 +158,21 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	@Override
-	protected void onPause() {
+	protected void onResume() {
 		// TODO Auto-generated method stub
-		super.onPause();
-
-		System.out.println("------onPause()-------");
-		dataControl.putItems(mLuckyPanView.getLuckyData());
+		super.onResume();
+		
+		System.out.println("-------onResume()------");
+		LuckyData luckyData = dataControl.getItems();
+		mLuckyPanView.setLuckyData(luckyData);
+		mLuckyPanView.isShowSpeed(settingData.isShowSpeed);
+		mLuckyPanView.setFriction(settingData.friction);
 	}
-	
+
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		// TODO 所有View被绘制完成后立马调用,在这可以测量view的高宽。
+		// 窗口获得或失去焦点时被调用,在onResume之后或onPause之后
 		super.onWindowFocusChanged(hasFocus);
 		System.out.println("-------onWindowFocusChanged()------"+hasFocus);
 		
@@ -184,18 +186,16 @@ public class MainActivity extends ActionBarActivity {
 			toolbar.setPivotY(y);
 		}
 	}
-	
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		
-		System.out.println("-------onResume()------");
-		LuckyData luckyData = dataControl.getItems();
-		mLuckyPanView.setLuckyData(luckyData);
-	}
 
-	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+
+		System.out.println("------onPause()-------");
+		dataControl.putItems(mLuckyPanView.getLuckyData());
+		dataControl.saveSetting(settingData);
+	}
 
 	public void createItemView()
 	{
@@ -260,10 +260,10 @@ public class MainActivity extends ActionBarActivity {
 				System.out.println("onClick----------");
 				
 				
-				if(speed == 0)
+				if(settingData.speed == 0)
 					mLuckyPanView.luckyStartRandom();
 				else
-					mLuckyPanView.luckyStarting(speed);
+					mLuckyPanView.luckyStarting(settingData.speed);
 				mLuckyPanView.luckyEnd();
 				
 				
@@ -298,7 +298,7 @@ public class MainActivity extends ActionBarActivity {
 				{
 					System.out.println("111111111111111111111");
 					if(isLongClick)
-						mLuckyPanView.luckyStarting(acceleration);
+						mLuckyPanView.luckyStarting(settingData.acceleration);
 				}
 				else if(event.getAction() == MotionEvent.ACTION_UP)
 				{
@@ -322,40 +322,41 @@ public class MainActivity extends ActionBarActivity {
 	/** 设置是否显示速度。  */
 	public void setIsShowSpeed(boolean isShow)
 	{
+		settingData.isShowSpeed = isShow;
 		mLuckyPanView.isShowSpeed(isShow);
 	}
 	/** 设置按钮加速度。  */
 	public void setAcceleration(double acceleration)
 	{
-		this.acceleration = acceleration;
+		settingData.acceleration = acceleration;
 	}
 	/** 获取按钮加速度。 */
 	public double getAcceleration()
 	{
-		return acceleration;
+		return settingData.acceleration;
 	}
 	
 	/** 设置转盘摩擦力。 */
 	public void setFriction(double friction)
 	{
-		this.friction = friction;
+		settingData.friction = friction;
 		mLuckyPanView.setFriction(friction);
 	}
 	/** 获取转盘摩擦力。 */
 	public double getFriction()
 	{
-		return friction;
+		return settingData.friction;
 	}
 	
 	/** 设置固定速度。 */
 	public void setSpeed(double speed)
 	{
-		this.speed = speed;
+		settingData.speed = speed;
 	}
 	/** 获取固定速度。 */
 	public double getSpeed()
 	{
-		return speed;
+		return settingData.speed;
 	}
 	
 	

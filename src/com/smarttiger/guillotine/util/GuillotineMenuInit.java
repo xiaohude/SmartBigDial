@@ -2,9 +2,13 @@ package com.smarttiger.guillotine.util;
 
 import com.smarttiger.bigdial.MainActivity;
 import com.smarttiger.bigdial.R;
+import com.smarttiger.bigdial.DataControl.SettingData;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,31 +16,103 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.Switch;
 
 public class GuillotineMenuInit {
 	
 	private MainActivity main;
 	private View guillotineView;
+	private SettingData settingData;
 	
-	public GuillotineMenuInit(MainActivity main, View view) {
+	public GuillotineMenuInit(MainActivity main, View view, SettingData data) {
 		// TODO Auto-generated constructor stub
 		this.main = main;
 		guillotineView = view;
+		settingData = data;
 		
 		initIsShowSpeed();
+		initAccelerationEdit();
+		initFrictionEdit();
+		initSpeedEdit();
 		setSetingAction();
 	}
 	
 	private void initIsShowSpeed()
 	{
 		Switch isShowSwitch = (Switch) guillotineView.findViewById(R.id.isShowSpeed_Switch);
+		isShowSwitch.setChecked(settingData.isShowSpeed);
 		isShowSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				// TODO Auto-generated method stub
 				main.setIsShowSpeed(isChecked);
+			}
+		});
+	}
+	
+	private void initAccelerationEdit()
+	{
+		EditText editText = (EditText) guillotineView.findViewById(R.id.acceleration_edit);
+		editText.setText(""+settingData.acceleration);
+		editText.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+			@Override
+			public void afterTextChanged(Editable s) {
+				if(TextUtils.isEmpty(s))
+					acceleration = 0.08;
+				else
+					acceleration = Double.valueOf(s.toString());
+				main.setAcceleration(acceleration);
+			}
+		});
+	}
+	
+	private void initFrictionEdit()
+	{
+		EditText editText = (EditText) guillotineView.findViewById(R.id.friction_edit);
+		editText.setText(""+settingData.friction);
+		editText.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+			@Override
+			public void afterTextChanged(Editable s) {
+				if(TextUtils.isEmpty(s))
+					friction = 0.1;
+				else
+					friction = Double.valueOf(s.toString());
+				main.setFriction(friction);
+			}
+		});
+	}
+	
+	private void initSpeedEdit()
+	{
+		EditText editText = (EditText) guillotineView.findViewById(R.id.speed_edit);
+		editText.setText(""+settingData.speed);
+		editText.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+			@Override
+			public void afterTextChanged(Editable s) {
+				if(TextUtils.isEmpty(s))
+					speed = 0;
+				else
+					speed = Double.valueOf(s.toString());
+				main.setSpeed(speed);
 			}
 		});
 	}

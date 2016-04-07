@@ -5,4 +5,5 @@
     <color name="selected_item_color">#30d1d5</color>
     
     <color name="title_color">#ffffff</color>
+    <color name="hint_color">#999999</color>
 </resources>

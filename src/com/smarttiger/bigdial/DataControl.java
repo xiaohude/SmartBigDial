@@ -7,20 +7,26 @@ import org.json.JSONException;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 public class DataControl {
 	
-	public static final String DATA_ARRAY = "data_array";
+	public static final String DATA_PREFERENCES = "data_preferences";
+	private SharedPreferences prefs;
+	private SharedPreferences.Editor editor;
+	
 	public static final String NAME_STRING_ARRAY = "name_array";
 	public static final String WEIGHT_INT_ARRAY = "weight_array";
 	public static final String SWEEP_ANGLE_DOUBLE_ARRAY = "sweep_angle_double";
 	public static final String ITEMCOUNT_INT = "itemcount_int";
 	public static final String ALLWEIGHT_INT = "allweight_int";
+
+	public static final String ISSHOWSPEED_BOOLEAN = "isshowspeed_boolean";
+	public static final String ACCELERATION_DOUBLE = "acceleration_double";
+	public static final String FRICTION_DOUBLE = "friction_double";
+	public static final String SPEED_DOUBLE = "speed_double";
 	
-	private SharedPreferences prefs;
-	private SharedPreferences.Editor editor;
-	
-	public static class LuckyData{
+	public static class LuckyData {
 		public String[] names;
 		public int[] weights;
 		public double[] sweepAngles;
@@ -49,23 +55,39 @@ public class DataControl {
 		}
 	}
 	
+	public static class SettingData {
+		public boolean isShowSpeed = false;
+		public double acceleration = 0.08;
+		public double friction = 0.1;
+		public double speed = 0;
+		
+		public SettingData()
+		{
+			
+		}
+		/**
+		 * 设置参数类
+		 * @param isShowSpeed 是否显示速度
+		 * @param acceleration 按钮加速度
+		 * @param friction 转盘摩擦力
+		 * @param speed 固定速度
+		 */
+		public SettingData(boolean isShowSpeed, double acceleration, double friction, double speed)
+		{
+			this.isShowSpeed = isShowSpeed;
+			this.acceleration = acceleration;
+			this.friction = friction;
+			this.speed = speed;
+		}
+	}
+	
 	public DataControl(Context context) {
 		// TODO Auto-generated constructor stub
 		
-		prefs = context.getSharedPreferences(DATA_ARRAY, Context.MODE_PRIVATE);  
+		prefs = context.getSharedPreferences(DATA_PREFERENCES, Context.MODE_PRIVATE);  
 	    editor = prefs.edit();  
 	}
 	
-	
-	public void putNames(String[] names)
-	{
-		JSONArray jsonArray = new JSONArray();  
-	    for (String s : names) {  
-	        jsonArray.put(s);  
-	    }    
-	    editor.putString(DATA_ARRAY,jsonArray.toString());  
-	    editor.commit();  
-	}
 	
 	public void putItems(String[] names, int[] weights, double[] sweepAngles, int itemCount, int allWeight)
 	{
@@ -144,6 +166,31 @@ public class DataControl {
 	    return luckyData;
 	}
 	
+	public void saveSetting(SettingData settingData)
+	{
+	    editor.putBoolean(ISSHOWSPEED_BOOLEAN,settingData.isShowSpeed);
+	    putDouble(editor, ACCELERATION_DOUBLE, settingData.acceleration);
+	    putDouble(editor, FRICTION_DOUBLE, settingData.friction);
+	    putDouble(editor, SPEED_DOUBLE, settingData.speed);
+	    editor.commit();  
+	}
+	public SettingData getSettingData()
+	{
+		SettingData settingData = new SettingData();
+		settingData.isShowSpeed = prefs.getBoolean(ISSHOWSPEED_BOOLEAN, false);
+		settingData.acceleration = getDouble(prefs, ACCELERATION_DOUBLE, 0.08);
+		settingData.friction = getDouble(prefs, FRICTION_DOUBLE, 0.1);
+		settingData.speed = getDouble(prefs, SPEED_DOUBLE, 0);
+		
+		return settingData;
+	}
 	
+	private Editor putDouble(final Editor edit, final String key, final double value) {
+		return edit.putLong(key, Double.doubleToRawLongBits(value));
+	}
+
+	private double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
+		return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
+	}
 
 }
