@@ -5,8 +5,11 @@
     <string name="title">智能大转盘</string>
     <string name="settings">设    置</string>
     
+    
+    <string name="param_settings">参数设置</string>
     <string name="isShowSpeed">是否显示速度</string>
-    <string name="acceleration">加速度:</string>
-    <string name="friction">摩擦力:</string>
-    <string name="speed">固定速度:</string>
+    <string name="acceleration">按钮加速度:</string>
+    <string name="friction">转盘摩擦力:</string>
+    <string name="touch_friction">手指摩擦力:</string>
+    <string name="speed">固定初速度:</string>
 </resources>

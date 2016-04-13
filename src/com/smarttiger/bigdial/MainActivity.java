@@ -319,6 +319,12 @@ public class MainActivity extends ActionBarActivity {
 		});
 	}
 	
+	public void setSettingData(SettingData data)
+	{
+		settingData = data;
+		mLuckyPanView.setFriction(data.friction);
+	}
+	
 	/** 设置是否显示速度。  */
 	public void setIsShowSpeed(boolean isShow)
 	{

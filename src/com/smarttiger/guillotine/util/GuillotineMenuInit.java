@@ -16,6 +16,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
@@ -24,6 +25,8 @@ public class GuillotineMenuInit {
 	private MainActivity main;
 	private View guillotineView;
 	private SettingData settingData;
+	private SettingData fastSettingData = new SettingData(false, 1, 1, 0);
+	private SettingData slowSettingData = new SettingData(false, 0.08, 0.1, 0);
 	
 	public GuillotineMenuInit(MainActivity main, View view, SettingData data) {
 		// TODO Auto-generated constructor stub
@@ -32,10 +35,18 @@ public class GuillotineMenuInit {
 		settingData = data;
 		
 		initIsShowSpeed();
+		initIsFastOrSlow();
 		initAccelerationEdit();
 		initFrictionEdit();
 		initSpeedEdit();
 		setSetingAction();
+	}
+	
+	private void refresh()
+	{
+		initAccelerationEdit();
+		initFrictionEdit();
+		initSpeedEdit();
 	}
 	
 	private void initIsShowSpeed()
@@ -49,6 +60,39 @@ public class GuillotineMenuInit {
 				main.setIsShowSpeed(isChecked);
 			}
 		});
+	}
+	
+	private RadioButton isFastMode;
+	private RadioButton isSlowMode;
+	private void initIsFastOrSlow()
+	{
+		isFastMode = (RadioButton) guillotineView.findViewById(R.id.isFastMode_radio);
+		isSlowMode = (RadioButton) guillotineView.findViewById(R.id.isSlowMode_radio);
+		isFastMode.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if(isChecked) {
+					settingData = fastSettingData;
+					main.setSettingData(fastSettingData);
+					refresh();
+				}
+			}
+		});
+		isSlowMode.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if(isChecked) {
+					settingData = slowSettingData;
+					main.setSettingData(slowSettingData);
+					refresh();
+				}
+			}
+		});
+	}
+	private void cleanRadio()
+	{
+		isFastMode.setChecked(false);
+		isSlowMode.setChecked(false);
 	}
 	
 	private void initAccelerationEdit()
@@ -69,6 +113,7 @@ public class GuillotineMenuInit {
 				else
 					acceleration = Double.valueOf(s.toString());
 				main.setAcceleration(acceleration);
+//				cleanRadio();
 			}
 		});
 	}
@@ -91,6 +136,7 @@ public class GuillotineMenuInit {
 				else
 					friction = Double.valueOf(s.toString());
 				main.setFriction(friction);
+//				cleanRadio();
 			}
 		});
 	}
