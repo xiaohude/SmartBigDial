@@ -64,7 +64,7 @@ public class MainActivity extends ActionBarActivity {
 			else if(event.getAction() == MotionEvent.ACTION_MOVE)
 			{
 				System.out.println("OnTouchListener----ACTION_MOVE");
-				mLuckyPanView.luckyStarting(-0.3);
+				mLuckyPanView.luckyStarting(0-settingData.touchFriction);
 			}
 			else if(event.getAction() == MotionEvent.ACTION_UP)
 			{
@@ -352,6 +352,12 @@ public class MainActivity extends ActionBarActivity {
 	public double getFriction()
 	{
 		return settingData.friction;
+	}
+	
+	/** 设置手指摩擦力。 */
+	public void setTouchFriction(double touchFriction)
+	{
+		settingData.touchFriction = touchFriction;
 	}
 	
 	/** 设置固定速度。 */

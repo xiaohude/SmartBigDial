@@ -24,6 +24,7 @@ public class DataControl {
 	public static final String ISSHOWSPEED_BOOLEAN = "isshowspeed_boolean";
 	public static final String ACCELERATION_DOUBLE = "acceleration_double";
 	public static final String FRICTION_DOUBLE = "friction_double";
+	public static final String TOUCHFRICTION_DOUBLE = "touchfriction_double";
 	public static final String SPEED_DOUBLE = "speed_double";
 	
 	public static class LuckyData {
@@ -59,6 +60,7 @@ public class DataControl {
 		public boolean isShowSpeed = false;
 		public double acceleration = 0.08;
 		public double friction = 0.1;
+		public double touchFriction = 0.3;
 		public double speed = 0;
 		
 		public SettingData()
@@ -77,6 +79,22 @@ public class DataControl {
 			this.isShowSpeed = isShowSpeed;
 			this.acceleration = acceleration;
 			this.friction = friction;
+			this.speed = speed;
+		}
+		/**
+		 * 设置参数类
+		 * @param isShowSpeed 是否显示速度
+		 * @param acceleration 按钮加速度
+		 * @param friction 转盘摩擦力
+		 * @param touchFriction 手指摩擦力
+		 * @param speed 固定速度
+		 */
+		public SettingData(boolean isShowSpeed, double acceleration, double friction, double touchFriction, double speed)
+		{
+			this.isShowSpeed = isShowSpeed;
+			this.acceleration = acceleration;
+			this.friction = friction;
+			this.touchFriction = touchFriction;
 			this.speed = speed;
 		}
 	}
@@ -171,6 +189,7 @@ public class DataControl {
 	    editor.putBoolean(ISSHOWSPEED_BOOLEAN,settingData.isShowSpeed);
 	    putDouble(editor, ACCELERATION_DOUBLE, settingData.acceleration);
 	    putDouble(editor, FRICTION_DOUBLE, settingData.friction);
+	    putDouble(editor, TOUCHFRICTION_DOUBLE, settingData.touchFriction);
 	    putDouble(editor, SPEED_DOUBLE, settingData.speed);
 	    editor.commit();  
 	}
@@ -180,6 +199,7 @@ public class DataControl {
 		settingData.isShowSpeed = prefs.getBoolean(ISSHOWSPEED_BOOLEAN, false);
 		settingData.acceleration = getDouble(prefs, ACCELERATION_DOUBLE, 0.08);
 		settingData.friction = getDouble(prefs, FRICTION_DOUBLE, 0.1);
+		settingData.touchFriction = getDouble(prefs, TOUCHFRICTION_DOUBLE, 0.3);
 		settingData.speed = getDouble(prefs, SPEED_DOUBLE, 0);
 		
 		return settingData;

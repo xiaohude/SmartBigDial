@@ -17,7 +17,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.SeekBar;
 import android.widget.Switch;
 
 public class GuillotineMenuInit {
@@ -38,6 +37,7 @@ public class GuillotineMenuInit {
 		initIsFastOrSlow();
 		initAccelerationEdit();
 		initFrictionEdit();
+		initTouchFrictionEdit();
 		initSpeedEdit();
 		setSetingAction();
 	}
@@ -141,6 +141,29 @@ public class GuillotineMenuInit {
 		});
 	}
 	
+	private void initTouchFrictionEdit()
+	{
+		EditText editText = (EditText) guillotineView.findViewById(R.id.touchFriction_edit);
+		editText.setText(""+settingData.touchFriction);
+		editText.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+			@Override
+			public void afterTextChanged(Editable s) {
+				if(TextUtils.isEmpty(s))
+					touchFriction = 0.1;
+				else
+					touchFriction = Double.valueOf(s.toString());
+				main.setTouchFriction(touchFriction);
+//				cleanRadio();
+			}
+		});
+	}
+	
 	private void initSpeedEdit()
 	{
 		EditText editText = (EditText) guillotineView.findViewById(R.id.speed_edit);
@@ -181,6 +204,8 @@ public class GuillotineMenuInit {
 	private double acceleration = 0.08;
 	//转盘摩擦力
 	private double friction = 0.1;
+	//手指摩擦力
+	private double touchFriction = 0.1;
 	//自定义速度
 	private double speed = 0;
 
