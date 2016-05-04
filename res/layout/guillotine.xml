@@ -174,11 +174,11 @@
 		
 		        <ImageView
 		            style="@style/ImageView.GuillotineItem"
-		            android:src="@drawable/ic_settings" />
+		            android:src="@drawable/ic_profile" />
 		
 		        <TextView
 		            style="@style/TextView.GuillotineItem"
-		            android:text="@string/settings" />
+		            android:text="@string/help" />
 		    </LinearLayout>
 	    
 	    </LinearLayout>

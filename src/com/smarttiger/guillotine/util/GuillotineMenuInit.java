@@ -1,11 +1,14 @@
 package com.smarttiger.guillotine.util;
 
+import com.smarttiger.bigdial.Help;
 import com.smarttiger.bigdial.MainActivity;
 import com.smarttiger.bigdial.R;
 import com.smarttiger.bigdial.DataControl.SettingData;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.sax.StartElementListener;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -194,7 +197,9 @@ public class GuillotineMenuInit {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				showMenuDialog();
+//				showMenuDialog();
+				
+				main.startActivity(new Intent(main, Help.class));
 				
 			}
 		});

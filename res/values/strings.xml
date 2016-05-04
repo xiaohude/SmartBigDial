@@ -3,7 +3,7 @@
     <string name="profile">我的空间</string>
     <string name="feed">我的评论</string>
     <string name="title">智能大转盘</string>
-    <string name="settings">设    置</string>
+    <string name="help">帮        助</string>
     
     
     <string name="param_settings">参数设置</string>
@@ -11,5 +11,5 @@
     <string name="acceleration">按钮加速度:</string>
     <string name="friction">转盘摩擦力:</string>
     <string name="touch_friction">手指摩擦力:</string>
-    <string name="speed">固定初速度:</string>
+    <string name="speed">指定初速度:</string>
 </resources>
