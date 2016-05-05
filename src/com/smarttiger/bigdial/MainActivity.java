@@ -51,6 +51,8 @@ public class MainActivity extends ActionBarActivity {
 	private int viewIndex = 0;
 	private DataControl dataControl;
 	
+	private GuillotineMenuInit guillotineMenuInit;
+	
 	private OnTouchListener touchListener = new OnTouchListener() {
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
@@ -112,6 +114,11 @@ public class MainActivity extends ActionBarActivity {
 		itemsLayout.removeAllViews();
 		createItemView();
 	}
+	
+	public void onResetMenuClick(View view)
+	{
+		guillotineMenuInit.clearMenuParameter();
+	}
 
     //铡刀菜单旋转中心坐标。
     private float x = 0;
@@ -133,7 +140,7 @@ public class MainActivity extends ActionBarActivity {
         guillotineMenu = LayoutInflater.from(this).inflate(R.layout.guillotine, null);
         root.addView(guillotineMenu);
         
-        GuillotineMenuInit guillotineMenuInit = new GuillotineMenuInit(this, guillotineMenu, settingData);
+        guillotineMenuInit = new GuillotineMenuInit(this, guillotineMenu, settingData);
 
         guillotineAnimation = new GuillotineAnimation.GuillotineBuilder(guillotineMenu, 
         		guillotineMenu.findViewById(R.id.guillotine_hamburger), 
