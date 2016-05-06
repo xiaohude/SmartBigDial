@@ -98,8 +98,9 @@ public class GuillotineMenuInit {
 		isFastMode.setOnCheckedChangeListener(fastCheckChangeListener);
 		isSlowMode.setOnCheckedChangeListener(slowCheckChangeListener);
 	}
-	private void cleanRadio()
+	public void cleanRadio()
 	{
+		System.out.println("cleanRadio()----------");
 		isFastMode.setChecked(false);
 		isSlowMode.setChecked(false);
 	}
@@ -123,6 +124,9 @@ public class GuillotineMenuInit {
 				else
 					settingData.acceleration = Double.valueOf(s.toString());
 				main.setAcceleration(settingData.acceleration);
+				
+				System.out.println("settingData.acceleration=========="+settingData.acceleration);
+				
 				if(settingData.acceleration != 0.08 && settingData.acceleration != 1)
 					cleanRadio();
 			}
@@ -148,6 +152,7 @@ public class GuillotineMenuInit {
 				else
 					settingData.friction = Double.valueOf(s.toString());
 				main.setFriction(settingData.friction);
+				System.out.println("settingData.friction=========="+settingData.friction);
 				if(settingData.friction != 0.1 && settingData.friction != 1)
 					cleanRadio();
 			}

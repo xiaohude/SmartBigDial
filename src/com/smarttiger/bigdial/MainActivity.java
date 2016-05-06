@@ -118,6 +118,7 @@ public class MainActivity extends ActionBarActivity {
 	public void onResetMenuClick(View view)
 	{
 		guillotineMenuInit.clearMenuParameter();
+		guillotineMenuInit.cleanRadio();
 	}
 
     //铡刀菜单旋转中心坐标。
