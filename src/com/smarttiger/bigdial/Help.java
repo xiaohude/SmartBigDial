@@ -17,7 +17,7 @@ public class Help extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.help);
 		WebView webview = (WebView) findViewById(R.id.webView1);
-		webview.loadUrl("file:///android_asset/help.txt");
+		webview.loadUrl("file:///android_asset/help.html");
 		
 		titleText = (TextView) findViewById(R.id.titleText);
 		titleText.setOnLongClickListener(new OnLongClickListener() {		

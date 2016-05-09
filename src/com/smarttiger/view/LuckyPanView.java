@@ -99,6 +99,11 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 	private volatile float mStartAngle = 0;
 	//转盘摩擦力
 	private double friction = 0.1;
+	//手指摩擦力
+	private double touchFriction = 0;
+	//按钮加速度
+	private double acceleration = 0;
+	
 	/**
 	 * 是否点击了停止
 	 */
@@ -285,7 +290,11 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 				if (isShouldEnd)
 				{
 					mSpeed -= friction;
+					mSpeed -= touchFriction;
 				}
+				else
+					mSpeed += acceleration;
+				
 				if (mSpeed <= 0)
 				{
 					mSpeed = 0;
@@ -675,5 +684,15 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 	public void setFriction(double friction)
 	{
 		this.friction = friction;
+	}
+	
+	public void setTouchFriction(double touchFriction)
+	{
+		this.touchFriction = touchFriction;
+	}
+	
+	public void setAcceleration(double acceleration)
+	{
+		this.acceleration = acceleration;
 	}
 }

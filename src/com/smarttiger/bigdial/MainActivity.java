@@ -59,19 +59,15 @@ public class MainActivity extends ActionBarActivity {
 			// TODO Auto-generated method stub
 			if(event.getAction() == MotionEvent.ACTION_DOWN)
 			{
-				System.out.println("OnTouchListener----ACTION_DOWN");
 				InputMethodManager inputMethodManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
 			    inputMethodManager.hideSoftInputFromWindow(itemsLayout.getWindowToken(), 0);
+				mLuckyPanView.setTouchFriction(settingData.touchFriction);
 			}
 			else if(event.getAction() == MotionEvent.ACTION_MOVE)
-			{
-				System.out.println("OnTouchListener----ACTION_MOVE");
-				mLuckyPanView.luckyStarting(0-settingData.touchFriction);
-			}
+			{ }
 			else if(event.getAction() == MotionEvent.ACTION_UP)
 			{
-				System.out.println("OnTouchListener----ACTION_UP");
-				mLuckyPanView.luckyEnd();
+				mLuckyPanView.setTouchFriction(0);
 			}
 			
 			return false;
@@ -150,6 +146,19 @@ public class MainActivity extends ActionBarActivity {
                 .setActionBarViewForAnimation(toolbar)
                 .setClosedOnStart(true)
                 .build();
+        
+        contentHamburger.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View view, MotionEvent event) {
+				//用于隐藏键盘和清除输入框的光标。
+				if(event.getAction() == MotionEvent.ACTION_DOWN) {
+					InputMethodManager inputMethodManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+				    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+					itemsLayout.clearFocus();
+				}
+				return false;
+			}
+		});
 	}
 	
 	
@@ -287,6 +296,8 @@ public class MainActivity extends ActionBarActivity {
 				System.out.println("onLongClick----------");
 				
 				isLongClick = true;
+				mLuckyPanView.luckyStarting(settingData.acceleration);
+				mLuckyPanView.setAcceleration(settingData.acceleration);
 				
 				return true;
 			}
@@ -299,25 +310,25 @@ public class MainActivity extends ActionBarActivity {
 				// TODO Auto-generated method stub
 				
 				if(event.getAction() == MotionEvent.ACTION_DOWN)
-				{
-					System.out.println("000000000000000000000");
-				}
+				{ }
 				else if(event.getAction() == MotionEvent.ACTION_MOVE)
 				{
-					System.out.println("111111111111111111111");
-					if(isLongClick)
-						mLuckyPanView.luckyStarting(settingData.acceleration);
+//					if(isLongClick)
+//					{
+//						mLuckyPanView.luckyStarting(settingData.acceleration);
+//						mLuckyPanView.setAcceleration(settingData.acceleration);
+//					}
 				}
 				else if(event.getAction() == MotionEvent.ACTION_UP)
 				{
-					System.out.println("222222222222222222222");
-					
 					if(isLongClick)
+					{
+						mLuckyPanView.setAcceleration(0);
 						mLuckyPanView.luckyEnd();
+					}
 					
 					isLongClick = false;
-					
-					
+
 //					mLuckyPanView.luckyStarting(100);
 //					mLuckyPanView.luckyEnd();
 				}
