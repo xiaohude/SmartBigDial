@@ -71,6 +71,7 @@
 	        >
 		    
 		    <RadioGroup 
+		        android:id="@+id/radio_group"
 		        style="@style/LinearLayout.GuillotineItem"
 				>
 		        

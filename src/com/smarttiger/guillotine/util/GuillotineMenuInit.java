@@ -20,6 +20,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 
 public class GuillotineMenuInit {
@@ -67,12 +68,14 @@ public class GuillotineMenuInit {
 		});
 	}
 	
+	private RadioGroup radioGroup;
 	private RadioButton isFastMode;
 	private OnCheckedChangeListener fastCheckChangeListener;
 	private RadioButton isSlowMode;
 	private OnCheckedChangeListener slowCheckChangeListener;
 	private void initIsFastOrSlow()
 	{
+		radioGroup = (RadioGroup) guillotineView.findViewById(R.id.radio_group);
 		isFastMode = (RadioButton) guillotineView.findViewById(R.id.isFastMode_radio);
 		isSlowMode = (RadioButton) guillotineView.findViewById(R.id.isSlowMode_radio);
 		fastCheckChangeListener = new OnCheckedChangeListener() {
@@ -100,9 +103,7 @@ public class GuillotineMenuInit {
 	}
 	public void cleanRadio()
 	{
-		System.out.println("cleanRadio()----------");
-		isFastMode.setChecked(false);
-		isSlowMode.setChecked(false);
+		radioGroup.clearCheck();
 	}
 	
 	private EditText accelerationEditText;
@@ -124,9 +125,6 @@ public class GuillotineMenuInit {
 				else
 					settingData.acceleration = Double.valueOf(s.toString());
 				main.setAcceleration(settingData.acceleration);
-				
-				System.out.println("settingData.acceleration=========="+settingData.acceleration);
-				
 				if(settingData.acceleration != 0.08 && settingData.acceleration != 1)
 					cleanRadio();
 			}
@@ -152,7 +150,6 @@ public class GuillotineMenuInit {
 				else
 					settingData.friction = Double.valueOf(s.toString());
 				main.setFriction(settingData.friction);
-				System.out.println("settingData.friction=========="+settingData.friction);
 				if(settingData.friction != 0.1 && settingData.friction != 1)
 					cleanRadio();
 			}
