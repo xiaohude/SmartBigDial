@@ -3,6 +3,7 @@ package com.smarttiger.guillotine.util;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -15,7 +16,7 @@ public class GuillotineAnimation {
     private static final float GUILLOTINE_CLOSED_ANGLE = -90f;
     private static final float GUILLOTINE_OPENED_ANGLE = 0f;
     private static final int DEFAULT_DURATION = 625;
-    private static final float ACTION_BAR_ROTATION_ANGLE = 3f;
+    private static final float ACTION_BAR_ROTATION_ANGLE = 3f; 
 
     private final View mGuillotineView;
     private final long mDuration;
@@ -65,7 +66,8 @@ public class GuillotineAnimation {
     private void setUpOpeningView(final View openingView) {
         if (mActionBarView != null) {
             mActionBarView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
+                @SuppressLint("NewApi")
+				@Override
                 public void onGlobalLayout() {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                         mActionBarView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -85,7 +87,8 @@ public class GuillotineAnimation {
 
     private void setUpClosingView(final View closingView) {
         mGuillotineView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
+            @SuppressLint("NewApi")
+			@Override
             public void onGlobalLayout() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     mGuillotineView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
