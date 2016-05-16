@@ -3,8 +3,8 @@ package com.smarttiger.view;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import com.smarttiger.bigdial.DataControl.LuckyData;
 import com.smarttiger.bigdial.R;
+import com.smarttiger.bigdial.DataControl.LuckyData;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -1,5 +1,6 @@
 package com.smarttiger.bigdial;
 
+import com.smarttiger.bigdial.R;
 import com.smarttiger.bigdial.DataControl.LuckyData;
 import com.smarttiger.bigdial.DataControl.SettingData;
 import com.smarttiger.guillotine.util.GuillotineAnimation;
