@@ -183,6 +183,7 @@ public class MainActivity extends ActionBarActivity {
 		System.out.println("-------onResume()------");
 		LuckyData luckyData = dataControl.getItems();
 		mLuckyPanView.setLuckyData(luckyData);
+		settingData = dataControl.getSettingData();
 		mLuckyPanView.isShowSpeed(settingData.isShowSpeed);
 		mLuckyPanView.setFriction(settingData.friction);
 	}
@@ -277,14 +278,17 @@ public class MainActivity extends ActionBarActivity {
 			{
 				System.out.println("onClick----------");
 				
+				if(settingData.hasCheat)
+					mLuckyPanView.luckyStart(settingData.cheatIndex);
+				else {
+					if(settingData.speed == 0)
+						mLuckyPanView.luckyStartRandom();
+					else
+						mLuckyPanView.luckyStarting(settingData.speed);
+				}
 				
-				if(settingData.speed == 0)
-					mLuckyPanView.luckyStartRandom();
-				else
-					mLuckyPanView.luckyStarting(settingData.speed);
 				mLuckyPanView.luckyEnd();
-				
-				
+								
 			}
 		});
 		

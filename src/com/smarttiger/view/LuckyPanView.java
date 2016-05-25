@@ -420,7 +420,7 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 	 * 里面的v1和v2是为了设置速度在v1到v2之间，刚好可以停在预定的扇形(luckyIndex)里
 	 * @param luckyIndex
 	 */
-	public void luckyStart(int luckyIndex)
+	public void luckyStart0(int luckyIndex)
 	{
 		// 每项角度大小
 		float angle = (float) (360 / mItemCount);
@@ -441,11 +441,78 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 		float v2 = (float) (Math.sqrt(1 * 1 + 8 * 1 * targetTo) - 1) / 2;
 		mSpeed = (float) (v1 + Math.random() * (v2 - v1));
 		
+		isShouldEnd = false;
+	}
+	
+	//friction越小月精确，因为其实速度不是线性递减的。是一帧一帧的跳变。所以开挂时，就得定死friction为0.1
+	//已解决上述偏差问题，不需要定死friction
+	/***
+	 * 使转盘停止在开始角度和结束角度中间随机位置。
+	 * @param targetStart 开始角度
+	 * @param targetEnd 结束角度
+	 */
+	public void luckyStart(float targetStart, float targetEnd)
+	{
+		/**
+		 * v*v = 2*a*s因为不是完全线性的变化。所以还是用等差数列求和公式。
+		 * (v1 + v1%friction)*(int)(v1/friction+1)/2 = target
+		 * 或者按照原来方法求出v后，再求出实际运动角度，再根据实际运动角度调整初始角度即可。
+		 */
+		float baseTarget = 360 * 5;
+		double v1 = Math.sqrt(2 * friction * (targetStart + baseTarget));
+		double v2 = Math.sqrt(2 * friction * (targetEnd + baseTarget));
+		mSpeed = (float) (v1 + Math.random() * (v2 - v1));
 		
-		mSpeed = 100;
+		//实际运动距离
+		float angle = (float) ((mSpeed + mSpeed%friction)*(int)(mSpeed/friction+1)/2);
+		
+		redressAngle(targetStart, targetEnd, angle - baseTarget);
 		
 		isShouldEnd = false;
 	}
+	
+	//纠正不是线性变化导致的偏差
+	private void redressAngle(float targetStart, float targetEnd, float angle)
+	{
+		if(angle < targetStart)
+			mStartAngle = (targetStart - angle) + (float)Math.random()*(targetEnd-targetStart);
+		else if(angle > targetEnd)
+			mStartAngle = (targetEnd - angle) - (float)Math.random()*(targetEnd-targetStart);
+		else
+			mStartAngle = 0;
+	}
+	
+	//item所在的扇形角度起始范围。
+	private class SweepTarget
+	{
+		float targetStart = 0;
+		float targetEnd = 0; 
+		public SweepTarget(float targetStart, float targetSweep)
+		{
+			//因为默认的是X轴为0度，而指针在Y轴，转动到相应位置所需的距离就需要270减一下 +-2是为了防止边界问题。
+			this.targetStart = 270 - targetStart + 2;
+			this.targetEnd = 270 - (targetStart + targetSweep) - 2;
+		}
+	}
+	private SweepTarget[] mSweepTarget ;
+	private void getSweppAngles()
+	{
+		mSweepTarget = new SweepTarget[mItemCount];
+		float target = 0;
+		for(int i = 0; i < mItemCount; i++)
+		{
+			mSweepTarget[i] = new SweepTarget(target, (float)mSweepAngles[i]);
+			target = (float) (target + mSweepAngles[i]);
+		}
+	}
+	public void luckyStart(int luckyIndex)
+	{
+		getSweppAngles();
+		System.out.println(""+mSweepTarget[luckyIndex].targetStart+"---" + mSweepTarget[luckyIndex].targetEnd);
+		luckyStart(mSweepTarget[luckyIndex].targetStart, mSweepTarget[luckyIndex].targetEnd);
+	}
+	
+	
 
 	/**
 	 * 直接随机一个速度。

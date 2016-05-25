@@ -26,6 +26,8 @@ public class DataControl {
 	public static final String FRICTION_DOUBLE = "friction_double";
 	public static final String TOUCHFRICTION_DOUBLE = "touchfriction_double";
 	public static final String SPEED_DOUBLE = "speed_double";
+	public static final String HASCHEAT_BOOLEAN = "hascheat_boolean";
+	public static final String CHEATINDEX_INT = "cheatindex_int";
 	
 	public static class LuckyData {
 		public String[] names;
@@ -62,6 +64,9 @@ public class DataControl {
 		public double friction = 0.1;
 		public double touchFriction = 0.3;
 		public double speed = 0;
+		
+		public boolean hasCheat = false;
+		public int cheatIndex = 0;
 		
 		public SettingData()
 		{
@@ -191,6 +196,8 @@ public class DataControl {
 	    putDouble(editor, FRICTION_DOUBLE, settingData.friction);
 	    putDouble(editor, TOUCHFRICTION_DOUBLE, settingData.touchFriction);
 	    putDouble(editor, SPEED_DOUBLE, settingData.speed);
+	    editor.putBoolean(HASCHEAT_BOOLEAN, settingData.hasCheat);
+	    editor.putInt(CHEATINDEX_INT, settingData.cheatIndex);
 	    editor.commit();  
 	}
 	public SettingData getSettingData()
@@ -201,6 +208,8 @@ public class DataControl {
 		settingData.friction = getDouble(prefs, FRICTION_DOUBLE, 0.1);
 		settingData.touchFriction = getDouble(prefs, TOUCHFRICTION_DOUBLE, 0.3);
 		settingData.speed = getDouble(prefs, SPEED_DOUBLE, 0);
+		settingData.hasCheat = prefs.getBoolean(HASCHEAT_BOOLEAN, false);
+		settingData.cheatIndex = prefs.getInt(CHEATINDEX_INT, 0);
 		
 		return settingData;
 	}
