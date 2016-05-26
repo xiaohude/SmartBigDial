@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.smarttiger.bigdial.R;
 import com.smarttiger.bigdial.DataControl.LuckyData;
 
+import android.R.integer;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -490,7 +491,7 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 		public SweepTarget(float targetStart, float targetSweep)
 		{
 			//因为默认的是X轴为0度，而指针在Y轴，转动到相应位置所需的距离就需要270减一下 +-2是为了防止边界问题。
-			this.targetStart = 270 - targetStart + 2;
+			this.targetStart = 270 - targetStart + 3;
 			this.targetEnd = 270 - (targetStart + targetSweep) - 2;
 		}
 	}
@@ -510,6 +511,20 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 		getSweppAngles();
 		System.out.println(""+mSweepTarget[luckyIndex].targetStart+"---" + mSweepTarget[luckyIndex].targetEnd);
 		luckyStart(mSweepTarget[luckyIndex].targetStart, mSweepTarget[luckyIndex].targetEnd);
+	}
+	public void luckyStart(boolean[] luckyIndexs)
+	{
+		int length = 0;
+		ArrayList<Integer> luckyIndexList = new ArrayList<Integer>(); 
+		for (int i = 0; i < luckyIndexs.length; i++) {
+			if(luckyIndexs[i]) {
+				luckyIndexList.add(i);
+				length++;
+			}
+		}
+		
+		int index = (int) (length * Math.random());
+		luckyStart(luckyIndexList.get(index));
 	}
 	
 	

@@ -47,6 +47,19 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             />
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="勾选指针停止范围："
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:textColor="#ffffff"
+            />
+        <ListView 
+            android:id="@+id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
 
     </LinearLayout>
 

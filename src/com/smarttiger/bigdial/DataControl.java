@@ -26,8 +26,11 @@ public class DataControl {
 	public static final String FRICTION_DOUBLE = "friction_double";
 	public static final String TOUCHFRICTION_DOUBLE = "touchfriction_double";
 	public static final String SPEED_DOUBLE = "speed_double";
+	
 	public static final String HASCHEAT_BOOLEAN = "hascheat_boolean";
 	public static final String CHEATINDEX_INT = "cheatindex_int";
+	public static final String CHEATCOUNT_INT = "cheatcount_int";
+	public static final String CHEATINDEXS_ARRAY= "cheatindexS_array";
 	
 	public static class LuckyData {
 		public String[] names;
@@ -67,6 +70,8 @@ public class DataControl {
 		
 		public boolean hasCheat = false;
 		public int cheatIndex = 0;
+		public int cheatCount = -1;
+		public boolean[] cheatIndexs;
 		
 		public SettingData()
 		{
@@ -164,7 +169,7 @@ public class DataControl {
 		}
 	}
 	
-	public LuckyData getItems()
+	public LuckyData getLuckyData()
 	{
 		int itemCount = prefs.getInt(ITEMCOUNT_INT, 0);
 		LuckyData luckyData = new LuckyData(itemCount);
@@ -196,8 +201,16 @@ public class DataControl {
 	    putDouble(editor, FRICTION_DOUBLE, settingData.friction);
 	    putDouble(editor, TOUCHFRICTION_DOUBLE, settingData.touchFriction);
 	    putDouble(editor, SPEED_DOUBLE, settingData.speed);
+	    
 	    editor.putBoolean(HASCHEAT_BOOLEAN, settingData.hasCheat);
 	    editor.putInt(CHEATINDEX_INT, settingData.cheatIndex);
+	    editor.putInt(CHEATCOUNT_INT, settingData.cheatCount);
+	    JSONArray cheatArray = new JSONArray();
+		for (int i = 0; i < settingData.cheatCount; i++) {
+			cheatArray.put(settingData.cheatIndexs[i]); 
+		}    
+		editor.putString(CHEATINDEXS_ARRAY,cheatArray.toString());
+	    
 	    editor.commit();  
 	}
 	public SettingData getSettingData()
@@ -208,8 +221,19 @@ public class DataControl {
 		settingData.friction = getDouble(prefs, FRICTION_DOUBLE, 0.1);
 		settingData.touchFriction = getDouble(prefs, TOUCHFRICTION_DOUBLE, 0.3);
 		settingData.speed = getDouble(prefs, SPEED_DOUBLE, 0);
+		
 		settingData.hasCheat = prefs.getBoolean(HASCHEAT_BOOLEAN, false);
 		settingData.cheatIndex = prefs.getInt(CHEATINDEX_INT, 0);
+		settingData.cheatCount = prefs.getInt(CHEATCOUNT_INT, 0);
+		try { 
+			JSONArray cheatArray = new JSONArray(prefs.getString(CHEATINDEXS_ARRAY, "[]")); 
+			settingData.cheatIndexs = new boolean[settingData.cheatCount];
+	        for (int i = 0; i < settingData.cheatCount; i++) {  
+	        	settingData.cheatIndexs[i] = cheatArray.getBoolean(i);
+	        } 
+        } catch (Exception e) {  
+	        e.printStackTrace();  
+	    }  
 		
 		return settingData;
 	}

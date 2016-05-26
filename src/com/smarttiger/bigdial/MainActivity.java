@@ -11,6 +11,7 @@ import com.smarttiger.view.NameTextWatcher;
 import com.smarttiger.view.WeightTextWatcher;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 /**
@@ -101,6 +103,12 @@ public class MainActivity extends ActionBarActivity {
 		
 		createItemView();
 		
+		initTitleText();
+		
+
+//		startActivity(new Intent(context, CheatActivity.class));
+//		finish();
+		
     }
 	
 	
@@ -162,10 +170,24 @@ public class MainActivity extends ActionBarActivity {
 		});
 	}
 	
+	private void initTitleText()
+	{
+		TextView titelText = (TextView) findViewById(R.id.title_text);
+		titelText.setOnLongClickListener(new OnLongClickListener() {
+			
+			@Override
+			public boolean onLongClick(View v) {
+				// TODO Auto-generated method stub
+				startActivity(new Intent(context, CheatActivity.class));
+				return false;
+			}
+		});
+	}
+	
 	
 	private void initItemsLayout()
 	{
-		LuckyData luckyData = dataControl.getItems();
+		LuckyData luckyData = dataControl.getLuckyData();
 		
 		for (int i = 0; i < luckyData.itemCount; i++) {
 			if(luckyData.weights[i] == 0)
@@ -181,7 +203,7 @@ public class MainActivity extends ActionBarActivity {
 		super.onResume();
 		
 		System.out.println("-------onResume()------");
-		LuckyData luckyData = dataControl.getItems();
+		LuckyData luckyData = dataControl.getLuckyData();
 		mLuckyPanView.setLuckyData(luckyData);
 		settingData = dataControl.getSettingData();
 		mLuckyPanView.isShowSpeed(settingData.isShowSpeed);
@@ -279,7 +301,7 @@ public class MainActivity extends ActionBarActivity {
 				System.out.println("onClick----------");
 				
 				if(settingData.hasCheat)
-					mLuckyPanView.luckyStart(settingData.cheatIndex);
+					mLuckyPanView.luckyStart(settingData.cheatIndexs);
 				else {
 					if(settingData.speed == 0)
 						mLuckyPanView.luckyStartRandom();

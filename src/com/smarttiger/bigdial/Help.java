@@ -29,7 +29,7 @@ public class Help extends Activity {
 		titleText.setOnLongClickListener(new OnLongClickListener() {		
 			@Override
 			public boolean onLongClick(View arg0) {
-				startActivity(new Intent(context, CheatView.class));
+				startActivity(new Intent(context, CheatActivity.class));
 				return false;
 			}
 		});

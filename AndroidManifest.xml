@@ -31,7 +31,7 @@
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
-            android:name="com.smarttiger.bigdial.CheatView"
+            android:name="com.smarttiger.bigdial.CheatActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
     </application>

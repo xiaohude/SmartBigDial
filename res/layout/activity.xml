@@ -29,6 +29,7 @@
                 android:src="@drawable/ic_menu_90" />
 
             <com.smarttiger.guillotine.util.CanaroTextView
+                android:id="@+id/title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
