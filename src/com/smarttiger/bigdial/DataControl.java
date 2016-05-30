@@ -28,7 +28,7 @@ public class DataControl {
 	public static final String SPEED_DOUBLE = "speed_double";
 	
 	public static final String HASCHEAT_BOOLEAN = "hascheat_boolean";
-	public static final String CHEATINDEX_INT = "cheatindex_int";
+//	public static final String CHEATINDEX_INT = "cheatindex_int";
 	public static final String CHEATCOUNT_INT = "cheatcount_int";
 	public static final String CHEATINDEXS_ARRAY= "cheatindexS_array";
 	
@@ -69,7 +69,7 @@ public class DataControl {
 		public double speed = 0;
 		
 		public boolean hasCheat = false;
-		public int cheatIndex = 0;
+//		public int cheatIndex = 0;
 		public int cheatCount = -1;
 		public boolean[] cheatIndexs;
 		
@@ -203,7 +203,7 @@ public class DataControl {
 	    putDouble(editor, SPEED_DOUBLE, settingData.speed);
 	    
 	    editor.putBoolean(HASCHEAT_BOOLEAN, settingData.hasCheat);
-	    editor.putInt(CHEATINDEX_INT, settingData.cheatIndex);
+//	    editor.putInt(CHEATINDEX_INT, settingData.cheatIndex);
 	    editor.putInt(CHEATCOUNT_INT, settingData.cheatCount);
 	    JSONArray cheatArray = new JSONArray();
 		for (int i = 0; i < settingData.cheatCount; i++) {
@@ -223,7 +223,7 @@ public class DataControl {
 		settingData.speed = getDouble(prefs, SPEED_DOUBLE, 0);
 		
 		settingData.hasCheat = prefs.getBoolean(HASCHEAT_BOOLEAN, false);
-		settingData.cheatIndex = prefs.getInt(CHEATINDEX_INT, 0);
+//		settingData.cheatIndex = prefs.getInt(CHEATINDEX_INT, 0);
 		settingData.cheatCount = prefs.getInt(CHEATCOUNT_INT, 0);
 		try { 
 			JSONArray cheatArray = new JSONArray(prefs.getString(CHEATINDEXS_ARRAY, "[]")); 

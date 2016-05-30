@@ -47,7 +47,7 @@ public class CheatActivity extends Activity {
 		settingData = dataControl.getSettingData();
 		luckyData = dataControl.getLuckyData();
 		settingData.cheatCount = luckyData.itemCount;
-		if(settingData.cheatIndexs.length != settingData.cheatCount) {
+		if(settingData.cheatIndexs == null || settingData.cheatIndexs.length != settingData.cheatCount) {
 			settingData.cheatIndexs = new boolean[settingData.cheatCount];
 			Arrays.fill(settingData.cheatIndexs, false); 
 		}
@@ -60,32 +60,13 @@ public class CheatActivity extends Activity {
 	private void initView()
 	{
 		hasCheatBox = (CheckBox) findViewById(R.id.hasCheatBox);
-		cheatIndexEdit = (EditText) findViewById(R.id.cheatIndexEdit);
 		hasCheatBox.setChecked(settingData.hasCheat);
-		cheatIndexEdit.setText(""+settingData.cheatIndex);
 		hasCheatBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				// TODO Auto-generated method stub
 				settingData.hasCheat = isChecked;
-			}
-		});
-		cheatIndexEdit.addTextChangedListener(new TextWatcher() {
-			
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-			}
-			
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-			}
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
-				if(!TextUtils.isEmpty(s))
-					settingData.cheatIndex = new Integer(s.toString());
 			}
 		});
 	}

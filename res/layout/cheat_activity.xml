@@ -41,19 +41,20 @@
             android:layout_height="wrap_content"
             android:text="开启外挂模式"
             />
-        <EditText 
-            android:id="@+id/cheatIndexEdit"
+        <View 
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
+            android:layout_height="2px"
+            android:background="#232323"
             />
         <TextView 
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:text="勾选指针停止范围："
             android:textStyle="bold"
             android:textSize="17sp"
             android:textColor="#ffffff"
+            android:background="#232323"
             />
         <ListView 
             android:id="@+id/list"

@@ -173,8 +173,14 @@ public class MainActivity extends ActionBarActivity {
 	private void initTitleText()
 	{
 		TextView titelText = (TextView) findViewById(R.id.title_text);
+		titelText.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				startActivity(new Intent(context, CheatActivity.class));
+			}
+		});
 		titelText.setOnLongClickListener(new OnLongClickListener() {
-			
 			@Override
 			public boolean onLongClick(View v) {
 				// TODO Auto-generated method stub

@@ -455,7 +455,7 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 	public void luckyStart(float targetStart, float targetEnd)
 	{
 		/**
-		 * v*v = 2*a*s因为不是完全线性的变化。所以还是用等差数列求和公式。
+		 * v*v = 2*a*s因为不是完全线性的变化,摩擦力越大误差越大。所以还是用等差数列求和公式。
 		 * (v1 + v1%friction)*(int)(v1/friction+1)/2 = target
 		 * 或者按照原来方法求出v后，再求出实际运动角度，再根据实际运动角度调整初始角度即可。
 		 */
@@ -466,7 +466,9 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 		
 		//实际运动距离
 		float angle = (float) ((mSpeed + mSpeed%friction)*(int)(mSpeed/friction+1)/2);
-		
+
+		System.out.println("angle===="+(mSpeed*mSpeed/2/friction));
+		System.out.println("angle===="+angle);
 		redressAngle(targetStart, targetEnd, angle - baseTarget);
 		
 		isShouldEnd = false;
@@ -475,12 +477,15 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 	//纠正不是线性变化导致的偏差
 	private void redressAngle(float targetStart, float targetEnd, float angle)
 	{
+		System.out.println("angle===="+angle);
+		System.out.println("targetEnd-targetStart==="+(targetEnd-targetStart));
 		if(angle < targetStart)
 			mStartAngle = (targetStart - angle) + (float)Math.random()*(targetEnd-targetStart);
 		else if(angle > targetEnd)
 			mStartAngle = (targetEnd - angle) - (float)Math.random()*(targetEnd-targetStart);
 		else
 			mStartAngle = 0;
+		System.out.println("mStartAngle===="+mStartAngle);
 	}
 	
 	//item所在的扇形角度起始范围。
@@ -490,9 +495,11 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 		float targetEnd = 0; 
 		public SweepTarget(float targetStart, float targetSweep)
 		{
-			//因为默认的是X轴为0度，而指针在Y轴，转动到相应位置所需的距离就需要270减一下 +-2是为了防止边界问题。
-			this.targetStart = 270 - targetStart + 3;
-			this.targetEnd = 270 - (targetStart + targetSweep) - 2;
+			//因为默认的是X轴为0度，而指针在Y轴，转动到相应位置所需的距离就需要270减一下。
+			//270减后start和end就对调了,所以对调一下。
+			//+-2是为了防止边界问题。
+			this.targetStart = 270 - (targetStart + targetSweep) + 2;
+			this.targetEnd = 270 - targetStart - 2;
 		}
 	}
 	private SweepTarget[] mSweepTarget ;
@@ -522,9 +529,12 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 				length++;
 			}
 		}
-		
-		int index = (int) (length * Math.random());
-		luckyStart(luckyIndexList.get(index));
+		if(length != 0) {
+			int index = (int) (length * Math.random());
+			luckyStart(luckyIndexList.get(index));
+		} else {
+			luckyStartRandom();
+		}
 	}
 	
 	
