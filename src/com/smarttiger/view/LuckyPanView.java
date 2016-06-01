@@ -1,8 +1,10 @@
 package com.smarttiger.view;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import com.smarttiger.bigdial.MainActivity;
 import com.smarttiger.bigdial.R;
 import com.smarttiger.bigdial.DataControl.LuckyData;
 
@@ -23,7 +25,7 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
 
-public class LuckyPanView extends SurfaceView implements Callback, Runnable
+public class LuckyPanView extends SurfaceView implements Callback, Runnable, Serializable
 {
 
 	private SurfaceHolder mHolder;
@@ -129,6 +131,8 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 	 */
 	private float mTextSize = TypedValue.applyDimension(
 			TypedValue.COMPLEX_UNIT_SP, 20, getResources().getDisplayMetrics());
+	
+	private MainActivity mainActivity;
 
 	public LuckyPanView(Context context)
 	{
@@ -139,6 +143,9 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 	{
 		super(context, attrs);
 		System.out.println("------LuckyPanView()------");
+		
+		if(context instanceof MainActivity)
+			mainActivity = (MainActivity) context;
 
 		mHolder = getHolder();
 		mHolder.addCallback(this);
@@ -516,7 +523,7 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 	public void luckyStart(int luckyIndex)
 	{
 		getSweppAngles();
-		System.out.println(""+mSweepTarget[luckyIndex].targetStart+"---" + mSweepTarget[luckyIndex].targetEnd);
+		System.out.println(""+mSweepTarget[luckyIndex].targetStart+"----" + mSweepTarget[luckyIndex].targetEnd);
 		luckyStart(mSweepTarget[luckyIndex].targetStart, mSweepTarget[luckyIndex].targetEnd);
 	}
 	public void luckyStart(boolean[] luckyIndexs)
@@ -531,6 +538,7 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 		}
 		if(length != 0) {
 			int index = (int) (length * Math.random());
+			System.out.println("LuchyIndex====="+luckyIndexList.get(index));
 			luckyStart(luckyIndexList.get(index));
 		} else {
 			luckyStartRandom();
@@ -676,6 +684,8 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable
 		allWeight = (int) (allWeight - weightList.get(index) + weight);
 
 		weightList.set(index, weight);
+		if(weight == 0 && mainActivity != null)
+			mainActivity.setCheatIndex(index, false);
 		
 		for (int i = 0; i < mItemCount; i++) {
 			mSweepAngles[i] = (double)weightList.get(i) / allWeight * 360 ;

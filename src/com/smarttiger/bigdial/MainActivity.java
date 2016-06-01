@@ -423,6 +423,12 @@ public class MainActivity extends ActionBarActivity {
 		return settingData.speed;
 	}
 	
+	/** 设置外挂参数 */
+	public void setCheatIndex(int index, boolean hasCheat)
+	{
+		if(settingData.cheatIndexs != null && index < settingData.cheatIndexs.length)
+			settingData.cheatIndexs[index] = hasCheat;
+	}
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

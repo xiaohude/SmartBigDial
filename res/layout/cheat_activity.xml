@@ -50,7 +50,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="勾选指针停止范围："
+            android:text="勾选指针停止范围：(灰色选项是已删除的，可还原)"
             android:textStyle="bold"
             android:textSize="17sp"
             android:textColor="#ffffff"

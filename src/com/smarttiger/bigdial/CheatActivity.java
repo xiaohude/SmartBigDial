@@ -7,13 +7,16 @@ import com.smarttiger.bigdial.DataControl.SettingData;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -21,6 +24,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -42,6 +46,9 @@ public class CheatActivity extends Activity {
 		setContentView(R.layout.cheat_activity);
 		context = this;
         mLayoutInflater = LayoutInflater.from(this);
+        
+        Intent intent = getIntent();
+        
 		
 		dataControl = new DataControl(this);
 		settingData = dataControl.getSettingData();
@@ -82,7 +89,8 @@ public class CheatActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// TODO Auto-generated method stub
-				System.out.println("onItemClick-----------");
+				if(luckyData.weights[position] == 0)
+					return;
 				ViewHolder holder = (ViewHolder) view.getTag();
 				boolean isCheck = ! holder.checkBox.isChecked();
 				holder.checkBox.setChecked(isCheck);
@@ -91,6 +99,7 @@ public class CheatActivity extends Activity {
 			}
 		});
 	}
+	
 	
 	private class CheatAdapter extends BaseAdapter
 	{
@@ -113,15 +122,19 @@ public class CheatActivity extends Activity {
 			return position;
 		}
 
+		/* (non-Javadoc)
+		 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
+		 */
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
-			ViewHolder holder;
+			final ViewHolder holder;
 			if(convertView ==null) {
 				convertView = mLayoutInflater.inflate(R.layout.cheat_item, parent, false);
 				holder = new ViewHolder();
 				holder.checkBox = (CheckBox) convertView.findViewById(R.id.check_box);
 				holder.textView = (TextView) convertView.findViewById(R.id.text_view);
+				holder.redoView = (ImageView) convertView.findViewById(R.id.redo_image);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -130,8 +143,30 @@ public class CheatActivity extends Activity {
 			holder.checkBox.setChecked(settingData.cheatIndexs[position]);
 			holder.textView.setText(luckyData.names[position]);
 			
-			return convertView;
+			holder.redoView.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					luckyData.weights[position] = 1;
+					luckyData.allWeight++;
+					holder.checkBox.setEnabled(true);
+					((View) v.getParent()).setEnabled(true);
+					holder.redoView.setVisibility(View.GONE);
+				}
+			});
 			
+			if(luckyData.weights[position] == 0) {
+				holder.checkBox.setEnabled(false);
+				convertView.setEnabled(false);
+				holder.redoView.setVisibility(View.VISIBLE);
+			}
+			else {
+				holder.checkBox.setEnabled(true);
+				convertView.setEnabled(true);
+				holder.redoView.setVisibility(View.GONE);
+			}
+				
+			return convertView;
 		}
 		
 	}
@@ -139,6 +174,7 @@ public class CheatActivity extends Activity {
 	{
 		CheckBox checkBox;
 		TextView textView;
+		ImageView redoView;
 	}
 	
 	
@@ -147,6 +183,7 @@ public class CheatActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onPause();
 		dataControl.saveSetting(settingData);
+		dataControl.putItems(luckyData);
 	}
 
 	public void onBackToMain(View view) {

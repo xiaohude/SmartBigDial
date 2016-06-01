@@ -246,3 +246,13 @@ itemsLayout在新建时，有旧数据，也需要更新。
 
 删除item时，记得把外挂数组里相应位置置false。
 
+
+无法隐藏listview的某个item可以改成删除还原功能。
+
+
+解决外挂界面，只点击checkbox，无法保存数据。将已删除的选项置灰。
+添加LuckPanView操作MainActivity的方法。
+
+
+解决删除还原后，选项列表不更新，转盘分配不对。
+
