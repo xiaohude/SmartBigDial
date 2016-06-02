@@ -99,9 +99,6 @@ public class MainActivity extends ActionBarActivity {
         
 		initLuckButton();
 		
-		initItemsLayout();
-		
-		createItemView();
 		
 		initTitleText();
 		
@@ -112,11 +109,15 @@ public class MainActivity extends ActionBarActivity {
     }
 	
 	
+	public void cleanItemLayout()
+	{
+		viewIndex = 0;
+		itemsLayout.removeAllViews();
+	}
 	public void onResetClick(View view)
 	{
 		mLuckyPanView.resetItem();
-		viewIndex = 0;
-		itemsLayout.removeAllViews();
+		cleanItemLayout();
 		createItemView();
 	}
 	
@@ -177,7 +178,9 @@ public class MainActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				startActivity(new Intent(context, CheatActivity.class));
+				Intent intent = new Intent(context, CheatActivity.class);
+				startActivity(intent);
+				
 			}
 		});
 		titelText.setOnLongClickListener(new OnLongClickListener() {
@@ -209,6 +212,11 @@ public class MainActivity extends ActionBarActivity {
 		super.onResume();
 		
 		System.out.println("-------onResume()------");
+		
+		cleanItemLayout();
+		initItemsLayout();
+		createItemView();
+		
 		LuckyData luckyData = dataControl.getLuckyData();
 		mLuckyPanView.setLuckyData(luckyData);
 		settingData = dataControl.getSettingData();
@@ -281,14 +289,13 @@ public class MainActivity extends ActionBarActivity {
 	
 	
 	
-	
+	/** 判断如果删除玩最后一个item时，自动清空所有数据 */
 	public void deleteItemView()
 	{
 		if(itemsLayout.getChildCount() == 1)
 		{
 			mLuckyPanView.resetItem();
-			viewIndex = 0;
-			itemsLayout.removeAllViews();
+			cleanItemLayout();
 			createItemView();
 		}
 			

@@ -1,6 +1,5 @@
 package com.smarttiger.view;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -25,7 +24,7 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
 
-public class LuckyPanView extends SurfaceView implements Callback, Runnable, Serializable
+public class LuckyPanView extends SurfaceView implements Callback, Runnable
 {
 
 	private SurfaceHolder mHolder;
@@ -747,6 +746,7 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable, Ser
 	
 	public void setLuckyData(LuckyData luckyData)
 	{
+		resetItem();
 		mItemCount = luckyData.itemCount;
 		mStrs = luckyData.names;
 		mSweepAngles = luckyData.sweepAngles;
@@ -760,8 +760,12 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable, Ser
 			nameList.add(luckyData.names[i]);
 			weightList.add(luckyData.weights[i]);
 			
+			System.out.println("luckyData.names[i]==="+luckyData.names[i]+"--luckyData.weights[i]=="+luckyData.weights[i]);
+			
 			mColors[i] = Colors[i%5];
 		}
+		System.out.println("mItemCount==="+mItemCount);
+		System.out.println("allWeight==="+allWeight);
 		
 
 		if(mItemCount % 5 == 1)

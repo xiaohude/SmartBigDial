@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import com.smarttiger.bigdial.DataControl.LuckyData;
 import com.smarttiger.bigdial.DataControl.SettingData;
+import com.smarttiger.view.LuckyPanView;
 
 import android.app.Activity;
 import android.content.Context;
@@ -38,6 +39,7 @@ public class CheatActivity extends Activity {
 	private EditText cheatIndexEdit;
 	private ListView listView;
     private LayoutInflater mLayoutInflater;
+    
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +48,6 @@ public class CheatActivity extends Activity {
 		setContentView(R.layout.cheat_activity);
 		context = this;
         mLayoutInflater = LayoutInflater.from(this);
-        
-        Intent intent = getIntent();
-        
 		
 		dataControl = new DataControl(this);
 		settingData = dataControl.getSettingData();
@@ -148,7 +147,10 @@ public class CheatActivity extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					luckyData.weights[position] = 1;
-					luckyData.allWeight++;
+					luckyData.allWeight += 1;
+					for (int i = 0; i < luckyData.itemCount; i++) {
+						luckyData.sweepAngles[i] = (double)luckyData.weights[i]/ luckyData.allWeight * 360 ;
+					}
 					holder.checkBox.setEnabled(true);
 					((View) v.getParent()).setEnabled(true);
 					holder.redoView.setVisibility(View.GONE);
