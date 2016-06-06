@@ -1,5 +1,6 @@
 package com.smarttiger.guillotine.util;
 
+import com.smarttiger.bigdial.MainInterface;
 import com.smarttiger.bigdial.Help;
 import com.smarttiger.bigdial.MainActivity;
 import com.smarttiger.bigdial.R;
@@ -25,12 +26,12 @@ import android.widget.Switch;
 
 public class GuillotineMenuInit {
 	
-	private MainActivity main;
+	private MainInterface main;
 	private View guillotineView;
 	private SettingData settingData;
 	
 	
-	public GuillotineMenuInit(MainActivity main, View view, SettingData data) {
+	public GuillotineMenuInit(MainInterface main, View view, SettingData data) {
 		// TODO Auto-generated constructor stub
 		this.main = main;
 		guillotineView = view;
@@ -213,7 +214,7 @@ public class GuillotineMenuInit {
 				// TODO Auto-generated method stub
 //				showMenuDialog();
 				
-				main.startActivity(new Intent(main, Help.class));
+				main.StartHelpActivity();
 				
 			}
 		});

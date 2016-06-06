@@ -33,7 +33,7 @@ import android.widget.TextView;
 /**
  * Created by Dmytro Denysenko on 5/4/15.
  */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements MainInterface{
     private static final long RIPPLE_DURATION = 300;
     Toolbar toolbar;
     FrameLayout root;
@@ -436,6 +436,12 @@ public class MainActivity extends ActionBarActivity {
 		if(settingData.cheatIndexs != null && index < settingData.cheatIndexs.length)
 			settingData.cheatIndexs[index] = hasCheat;
 	}
+
+	@Override
+	public void StartHelpActivity() {
+		// TODO Auto-generated method stub
+		this.startActivity(new Intent(this, Help.class));
+	}
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -448,4 +454,6 @@ public class MainActivity extends ActionBarActivity {
          }
          return super.onKeyDown(keyCode, event);
 	}
+
+
 }
