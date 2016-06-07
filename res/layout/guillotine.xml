@@ -147,6 +147,16 @@
 		            />
 		    </LinearLayout>
 		
+		    <LinearLayout
+		        style="@style/LinearLayout.GuillotineItem">
+		        <TextView
+		            style="@style/TextView.GuillotineItem"
+		            android:text="@string/isHideItemList" />
+		        <Switch
+		            android:id="@+id/isHideItemList_Switch"
+		            style="@style/TextView.GuillotineItem"
+		            />
+		    </LinearLayout>
 		    
 		    
 		

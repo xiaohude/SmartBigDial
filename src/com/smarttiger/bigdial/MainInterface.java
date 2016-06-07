@@ -9,6 +9,9 @@ public interface MainInterface {
 	/** 设置是否显示速度。  */
 	public void setIsShowSpeed(boolean isShow);
 	
+	/** 设置是否隐藏选项列表。  */
+	public void setIsHideItemList(boolean isHide);
+	
 	/** 设置按钮加速度。  */
 	public void setAcceleration(double acceleration);
 	/** 获取按钮加速度。 */

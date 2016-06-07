@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -436,6 +437,25 @@ public class MainActivity extends ActionBarActivity implements MainInterface{
 		if(settingData.cheatIndexs != null && index < settingData.cheatIndexs.length)
 			settingData.cheatIndexs[index] = hasCheat;
 	}
+	
+	/** 设置是否隐藏选项列表 */
+	public void setIsHideItemList(boolean isHide) {
+		View resetView = findViewById(R.id.reset_view);
+		View scrollView = findViewById(R.id.scroll_view);
+		View luckPanLayout = findViewById(R.id.luckypan_layout);
+		LayoutParams params = luckPanLayout.getLayoutParams();
+		if(isHide) {
+			resetView.setVisibility(View.GONE);
+			scrollView.setVisibility(View.GONE);
+			params.height = LayoutParams.MATCH_PARENT;
+			luckPanLayout.setLayoutParams(params);
+		} else {
+			resetView.setVisibility(View.VISIBLE);
+			scrollView.setVisibility(View.VISIBLE);
+			params.height = LayoutParams.WRAP_CONTENT;
+			luckPanLayout.setLayoutParams(params);
+		}
+	}
 
 	@Override
 	public void StartHelpActivity() {
@@ -454,6 +474,7 @@ public class MainActivity extends ActionBarActivity implements MainInterface{
          }
          return super.onKeyDown(keyCode, event);
 	}
+
 
 
 }

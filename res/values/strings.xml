@@ -12,4 +12,5 @@
     <string name="friction">转盘摩擦力:</string>
     <string name="touch_friction">手指摩擦力:</string>
     <string name="speed">指定初速度:</string>
+    <string name="isHideItemList">隐藏选项列表</string>
 </resources>

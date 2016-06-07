@@ -38,6 +38,7 @@ public class GuillotineMenuInit {
 		settingData = data;
 		
 		initIsShowSpeed();
+		initIsHideItemList();
 		initIsFastOrSlow();
 		initAccelerationEdit();
 		initFrictionEdit();
@@ -65,6 +66,20 @@ public class GuillotineMenuInit {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				// TODO Auto-generated method stub
 				main.setIsShowSpeed(isChecked);
+			}
+		});
+	}
+	
+	Switch isHideSwitch;
+	private void initIsHideItemList()
+	{
+		isHideSwitch = (Switch) guillotineView.findViewById(R.id.isHideItemList_Switch);
+//		isHideSwitch.setChecked(settingData.isShowSpeed);
+		isHideSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				// TODO Auto-generated method stub
+				main.setIsHideItemList(isChecked);
 			}
 		});
 	}
