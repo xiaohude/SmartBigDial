@@ -13,6 +13,7 @@ import com.smarttiger.view.WeightTextWatcher;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -172,9 +173,13 @@ public class MainActivity extends ActionBarActivity implements MainInterface{
 		});
 	}
 	
+	
+
+    private Vibrator vibrator;
 	private void initTitleText()
 	{
 		TextView titelText = (TextView) findViewById(R.id.title_text);
+		vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);  
 		titelText.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -182,14 +187,22 @@ public class MainActivity extends ActionBarActivity implements MainInterface{
 				Intent intent = new Intent(context, CheatActivity.class);
 				startActivity(intent);
 				
+		        
 			}
 		});
 		titelText.setOnLongClickListener(new OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
 				// TODO Auto-generated method stub
-				startActivity(new Intent(context, CheatActivity.class));
-				return false;
+				if(settingData.hasCheat) {
+					settingData.hasCheat = false;
+					long [] pattern = {75,50,75,50};// 停止 开启 停止 开启   
+			        vibrator.vibrate(pattern, -1);  
+				} else {
+					settingData.hasCheat = true;
+					vibrator.vibrate(100);  
+				}
+				return true;
 			}
 		});
 	}
@@ -476,5 +489,11 @@ public class MainActivity extends ActionBarActivity implements MainInterface{
 	}
 
 
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		vibrator.cancel();
+	}
 
 }
