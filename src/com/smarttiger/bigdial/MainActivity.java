@@ -150,6 +150,15 @@ public class MainActivity extends ActionBarActivity implements MainInterface{
         root.addView(guillotineMenu);
         
         guillotineMenuInit = new GuillotineMenuInit(this, guillotineMenu, settingData);
+        
+        guillotineMenu.findViewById(R.id.guillotine_set_title).setOnLongClickListener(new OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				Intent intent = new Intent(context, CheatActivity.class);
+				startActivity(intent);
+				return false;
+			}
+		});
 
         guillotineAnimation = new GuillotineAnimation.GuillotineBuilder(guillotineMenu, 
         		guillotineMenu.findViewById(R.id.guillotine_hamburger), 
@@ -180,16 +189,6 @@ public class MainActivity extends ActionBarActivity implements MainInterface{
 	{
 		TextView titelText = (TextView) findViewById(R.id.title_text);
 		vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);  
-		titelText.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(context, CheatActivity.class);
-				startActivity(intent);
-				
-		        
-			}
-		});
 		titelText.setOnLongClickListener(new OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {

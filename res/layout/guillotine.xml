@@ -17,6 +17,7 @@
             style="@style/ImageView.Hamburger"
             android:src="@drawable/ic_menu" />
         <com.smarttiger.guillotine.util.CanaroTextView
+            android:id="@+id/guillotine_set_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
